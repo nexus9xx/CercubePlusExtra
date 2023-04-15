@@ -212,16 +212,6 @@ extern NSBundle *CercubePlusBundle();
                     return YES;
                 }
                 settingItemId:0],
-
-            [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"RED_PROGRESS_BAR")
-                titleDescription:LOC(@"RED_PROGRESS_BAR_DESC")
-                accessibilityIdentifier:nil
-                switchOn:IsEnabled(@"redProgressBar_enabled")
-                switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
-                    [[NSUserDefaults standardUserDefaults] setBool:enabled forKey:@"redProgressBar_enabled"];
-                    return YES;
-                }
-                settingItemId:0],
 				
             [YTSettingsSectionItemClass switchItemWithTitle:LOC(@"DISABLE_VIDEO_PLAYER_ZOOM")
                 titleDescription:LOC(@"DISABLE_VIDEO_PLAYER_ZOOM")
