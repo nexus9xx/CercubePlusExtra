@@ -1,28 +1,4 @@
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import <objc/runtime.h>
-#import <dlfcn.h>
-#import <sys/utsname.h>
-#import <substrate.h>
 #import "Header.h"
-#import "Tweaks/YouTubeHeader/YTVideoQualitySwitchOriginalController.h"
-#import "Tweaks/YouTubeHeader/YTPlayerViewController.h"
-#import "Tweaks/YouTubeHeader/YTWatchController.h"
-#import "Tweaks/YouTubeHeader/YTIGuideResponse.h"
-#import "Tweaks/YouTubeHeader/YTIGuideResponseSupportedRenderers.h"
-#import "Tweaks/YouTubeHeader/YTIPivotBarSupportedRenderers.h"
-#import "Tweaks/YouTubeHeader/YTIPivotBarRenderer.h"
-#import "Tweaks/YouTubeHeader/YTIBrowseRequest.h"
-#import "Tweaks/YouTubeHeader/YTCommonColorPalette.h"
-#import "Tweaks/YouTubeHeader/ASCollectionView.h"
-#import "Tweaks/YouTubeHeader/YTPlayerOverlay.h"
-#import "Tweaks/YouTubeHeader/YTPlayerOverlayProvider.h"
-#import "Tweaks/YouTubeHeader/YTReelWatchPlaybackOverlayView.h"
-#import "Tweaks/YouTubeHeader/YTReelPlayerBottomButton.h"
-#import "Tweaks/YouTubeHeader/YTReelPlayerViewController.h"
-#import "Tweaks/YouTubeHeader/YTAlertView.h"
-#import "Tweaks/YouTubeHeader/YTISectionListRenderer.h"
-#import "Tweaks/YouTubeHeader/YTPivotBarItemView.h"
 
 NSBundle *CercubePlusBundle() {
     static NSBundle *bundle = nil;
@@ -32,7 +8,7 @@ NSBundle *CercubePlusBundle() {
         if (tweakBundlePath)
             bundle = [NSBundle bundleWithPath:tweakBundlePath];
         else
-            bundle = [NSBundle bundleWithPath:@"/Library/Application Support/CercubePlus.bundle"];
+            bundle = [NSBundle bundleWithPath:ROOT_PATH_NS(@"/Library/Application Support/CercubePlus.bundle")];
     });
     return bundle;
 }
@@ -328,32 +304,55 @@ static BOOL didFinishLaunching;
 - (BOOL)enableClientShortsSheetsModernization { return NO; }
 - (BOOL)enableTimestampModernizationForNative { return NO; }
 - (BOOL)mainAppCoreClientIosEnableModernOssPage { return NO; }
+- (BOOL)modernizeElementsTextColor { return NO; }
+- (BOOL)modernizeElementsBgColor { return NO; }
+- (BOOL)modernizeCollectionLockups { return NO; }
+- (BOOL)uiSystemsClientGlobalConfigEnableEpUxUpdates { return NO; }
+- (BOOL)uiSystemsClientGlobalConfigEnableModernButtonsForNative { return NO; }
+- (BOOL)uiSystemsClientGlobalConfigEnableModernButtonsForNativeLongTail { return NO; }
+- (BOOL)uiSystemsClientGlobalConfigEnableModernTabsForNative { return NO; }
+- (BOOL)uiSystemsClientGlobalConfigIosEnableSnackbarModernization { return NO; }
 // Disable Rounded Content - YTNoModernUI
 - (BOOL)iosEnableRoundedSearchBar { return NO; }
 - (BOOL)enableIosRoundedSearchBar { return NO; }
+- (BOOL)enableIosSearchBar { return NO; }
 - (BOOL)iosDownloadsPageRoundedThumbs { return NO; }
 - (BOOL)iosRoundedSearchBarSuggestZeroPadding { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigEnableRoundedThumbnailsForNative { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigEnableRoundedThumbnailsForNativeLongTail { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigEnableRoundedTimestampForNative { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigEnableRoundedDialogForNative { return NO; }
-- (BOOL)uiSystemsClientGlobalConfigEnableModernButtonsForNative { return NO; }
-- (BOOL)uiSystemsClientGlobalConfigEnableModernButtonsForNativeLongTail { return NO; }
-- (BOOL)uiSystemsClientGlobalConfigEnableModernTabsForNative { return NO; }
-- (BOOL)uiSystemsClientGlobalConfigIosEnableSnackbarModernization { return NO; }
 // Disable Darker Dark Mode - YTNoModernUI
 - (BOOL)enableDarkerDarkMode { return NO; }
-- (BOOL)modernizeElementsTextColor { return NO; }
-- (BOOL)modernizeElementsBgColor { return NO; }
-- (BOOL)modernizeCollectionLockups { return NO; }
+- (BOOL)useDarkerPaletteBgColorForElements { return NO; }
+- (BOOL)useDarkerPaletteTextColorForElements { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigUseDarkerPaletteTextColorForNative { return NO; }
 - (BOOL)uiSystemsClientGlobalConfigUseDarkerPaletteBgColorForNative { return NO; }
 // Disable Ambient Mode - YTNoModernUI
+- (BOOL)disableCinematicForLowPowerMode { return NO; }
 - (BOOL)enableCinematicContainer { return NO; }
 - (BOOL)enableCinematicContainerOnClient { return NO; }
+- (BOOL)enableCinematicContainerOnTablet { return NO; }
 - (BOOL)iosCinematicContainerClientImprovement { return NO; }
+- (BOOL)iosEnableGhostCardInlineTitleCinematicContainerFix { return NO; }
+- (BOOL)iosUseFineScrubberMosaicStoreForCinematic { return NO; }
+- (BOOL)mainAppCoreClientEnableClientCinematicPlaylists { return NO; }
+- (BOOL)mainAppCoreClientEnableClientCinematicPlaylistsPostMvp { return NO; }
+- (BOOL)mainAppCoreClientEnableClientCinematicTablets { return NO; }
 // 16.42.3 Styled YouTube Channel Page Interface - YTNoModernUI
 - (BOOL)channelsClientConfigIosChannelNavRestructuring { return NO; }
+- (BOOL)channelsClientConfigIosMultiPartChannelHeader { return NO; }
+// Disable Optional Content - YTNoModernUI
+- (BOOL)elementsClientIosElementsEnableLayoutUpdateForIob { return NO; }
+- (BOOL)supportElementsInMenuItemSupportedRenderers { return NO; }
+- (BOOL)isNewRadioButtonStyleEnabled { return NO; }
+- (BOOL)uiSystemsClientGlobalConfigEnableButtonSentenceCasingForNative { return NO; }
+%end
+
+%hook YTHotConfig
+- (BOOL)liveChatIosUseModernRotationDetectiom { return NO; } // Disable Modern Content (YTHotConfig)
+- (BOOL)iosShouldRepositionChannelBar { return NO; }
+- (BOOL)enableElementRendererOnChannelCreation { return NO; }
 %end
 %end
 
@@ -1785,9 +1784,9 @@ void DEMC_centerRenderingView() {
 %end
 
 // Bring back the red progress bar
-%hook YTColdConfig
-- (BOOL)segmentablePlayerBarUpdateColors {
-    return IsEnabled(@"redProgressBar_enabled") ? NO : %orig;
+%hook YTInlinePlayerBarContainerView
+- (id)quietProgressBarColor {
+    return IsEnabled(@"redProgressBar_enabled") ? [UIColor redColor] : %orig;
 }
 %end
 
